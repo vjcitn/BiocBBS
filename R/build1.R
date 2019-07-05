@@ -25,5 +25,5 @@ prep1 = function(pkgname) {
 build1 = function(srcpath, dest=".", ...) {
 	n1 = prep1(basename(srcpath))
         if (!is(n1, "logical")) return(n1)
-	if (n1) pkgbuild::build(srcpath, dest, ...)
+	if (n1) try(pkgbuild::build(srcpath, dest, ...))
 }
