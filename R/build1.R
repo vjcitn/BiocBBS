@@ -7,7 +7,7 @@ prep1 = function(pkgname) {
 	ii = rownames(installed.packages())
 	to_install = setdiff(deps, ii)
 	if (length(to_install)>0) {
-	       	ans = try(BiocManager::install(to_install))
+	       	ans = try(BiocManager::install(to_install, ask=FALSE, update=TRUE))
 		if (inherits(ans, "try-error")) return(ans)
 		}
 	TRUE
@@ -19,5 +19,5 @@ prep1 = function(pkgname) {
 #' @export
 build1 = function(srcpath, dest=".", ...) {
 	n1 = prep1(basename(srcpath))
-	if (n1) build(srcpath, dest, ...)
+	if (n1) pkgbuild::build(srcpath, dest, ...)
 }
