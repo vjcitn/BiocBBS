@@ -14,3 +14,8 @@ build1(srcpath, dest = ".", ...)
 \description{
 prepare and build a package tarball
 }
+\note{
+If preparation for building triggers a try-error, the resulting 
+exception object is returned.  Otherwise the result of pkgbuild::build()
+is returned.
+}

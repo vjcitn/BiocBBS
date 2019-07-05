@@ -3,4 +3,6 @@
 export(bioc_software_packagelist)
 export(build1)
 export(getpk)
+export(list_packs_to_update)
+export(parallel_tarballs)
 import(BiocPkgTools)
