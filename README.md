@@ -2,6 +2,9 @@
 sketch of build system shortcuts
 ..
 
+Major issue to make this work: pkgbuild had to be modified to avoid querying user on actions taken on inst/doc contents when present
+the fork with a special version number is at github.com/vjcitn
+
 basic ideas:
 
 to populate a folder with clones of all software packages in
