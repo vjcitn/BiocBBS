@@ -1487,3 +1487,13 @@ zlib1g/bionic,now 1:1.2.11.dfsg-0ubuntu2 amd64 [installed]
 zlib1g-dev/bionic,now 1:1.2.11.dfsg-0ubuntu2 amd64 [installed,automatic]
 zsh/bionic-updates,bionic-security,now 5.4.2-3ubuntu3.1 amd64 [installed]
 zsh-common/bionic-updates,bionic-security,now 5.4.2-3ubuntu3.1 all [installed,automatic]
+
+< libfftw3-3/bionic,now 3.3.7-1 amd64 [installed]
+< libfftw3-bin/bionic,now 3.3.7-1 amd64 [installed,automatic]
+< libfftw3-dev/bionic,now 3.3.7-1 amd64 [installed]
+454,456d450
+< libfftw3-long3/bionic,now 3.3.7-1 amd64 [installed,automatic]
+< libfftw3-quad3/bionic,now 3.3.7-1 amd64 [installed,automatic]
+< libfftw3-single3/bionic,now 3.3.7-1 amd64 [installed,automatic]
+1385c1379
+< tzdata/bionic-updates,bionic-security,now 2019b-0ubuntu0.18.04 all [installed]
