@@ -2,8 +2,8 @@
 sketch of build system shortcuts
 ..
 
-Major issue to make this work: pkgbuild had to be modified to avoid querying user on actions taken on inst/doc contents when present
-the fork with a special version number is at github.com/vjcitn
+Major issue to make this work: [pkgbuild](https://github.com/r-lib/pkgbuild) had to be modified to avoid querying user on actions taken on inst/doc contents when present
+the fork with a special version number is at [github.com/vjcitn](https://github.com/vjcitn/pkgbuild).
 
 basic ideas:
 
