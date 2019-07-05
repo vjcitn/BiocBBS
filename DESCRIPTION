@@ -1,0 +1,17 @@
+Package: BiocBBSpack
+Title: support for build system
+Description: support for build system
+Version: 0.0.0
+Author: Vince Carey
+Suggests: knitr
+Depends: R (>= 3.6), BiocPkgTools
+Maintainer: VJ Carey <stvjc@channing.harvard.edu>
+License: Artistic-2.0
+LazyLoad: yes
+LazyData: yes
+biocViews: Infrastructure
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Encoding: UTF-8
+NeedsCompilation: no
+Packaged: 2019-07-05 04:50:31 UTC; stvjc
