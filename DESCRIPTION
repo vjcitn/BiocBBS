@@ -1,7 +1,7 @@
 Package: BiocBBSpack
 Title: support for build system
 Description: support for build system
-Version: 0.0.5
+Version: 0.0.6
 Author: Vince Carey
 Suggests: knitr
 Depends: R (>= 3.6), BiocPkgTools, pkgbuild(== 1.0.3.900099)

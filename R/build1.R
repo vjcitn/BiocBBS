@@ -1,5 +1,7 @@
 prep1 = function(pkgname) {
-	ddf = as.data.frame(BiocPkgTools::buildPkgDependencyDataFrame())
+        dtypes = c("Depends", "Imports", "Suggests", "LinkingTo")
+	ddf = as.data.frame(
+           BiocPkgTools::buildPkgDependencyDataFrame(dependencies=dtypes))
 	stopifnot(pkgname %in% ddf$Package)
 	sdd = split(ddf, ddf$Package)
 	targ = sdd[[pkgname]] # little data.frame
