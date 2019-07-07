@@ -14,6 +14,10 @@ endow_ubuntu = function(packtxtfun = default_packtxt, ...) {
   allp = readLines(packtxtfun())
   cln = gsub("/.*", "", allp[-1])  # drop first record 'listing...'
   string = paste(cln, collapse=" ")
-  system(paste("sudo apt-get install < ", string, collapse=" "))
+  tf = tempfile()
+  writeLines(string, tf)
+  on.exit(unlink(tf))
+  system(paste("sudo apt-get install < ", tf, collapse = " "))
 }
+
 
