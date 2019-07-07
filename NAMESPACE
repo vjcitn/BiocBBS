@@ -2,6 +2,8 @@
 
 export(bioc_software_packagelist)
 export(build1)
+export(default_packtxt)
+export(endow_ubuntu)
 export(getpk)
 export(list_packs_to_update)
 export(parallel_tarballs)
