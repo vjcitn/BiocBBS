@@ -16,8 +16,12 @@ prep1 = function(pkgname) {
 }
 
 #' prepare and build a package tarball
+#' @importFrom methods is
+#' @importFrom utils installed.packages
+#' @importFrom pkgbuild build
 #' @param srcpath character(1) path to source folder for a package
 #' @param dest character(1) destination folder
+#' @param \dots pass to pkgbuild::build
 #' @note If preparation for building triggers a try-error, the resulting 
 #' exception object is returned.  Otherwise the result of pkgbuild::build()
 #' is returned.
@@ -28,9 +32,14 @@ build1 = function(srcpath, dest=".", ...) {
 	if (n1) try(pkgbuild::build(srcpath, dest, ...))
 }
 
+#' run build1 and capture the R CMD build log
+#' @param srcpath character(1) path to source folder for a package
+#' @param dest character(1) destination folder
+#' @param \dots pass to pkgbuild::build
 #' @export
 build1_with_buildsink = function(srcpath, dest=".", ...) {
 	sink(paste(basename(srcpath), ".bldlog.txt", sep=""))
 	build1(srcpath=srcpath, dest=dest, ...)
 	sink(NULL)
 	}
+

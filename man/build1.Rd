@@ -10,6 +10,8 @@ build1(srcpath, dest = ".", ...)
 \item{srcpath}{character(1) path to source folder for a package}
 
 \item{dest}{character(1) destination folder}
+
+\item{\dots}{pass to pkgbuild::build}
 }
 \description{
 prepare and build a package tarball

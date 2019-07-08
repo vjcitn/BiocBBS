@@ -5,7 +5,7 @@
 #' @export
 parallel_tarballs = function(paths, dest=".", ncores=6) {
 	options(mc.cores=ncores)
-	todo = dir("../bioc_sources", full=TRUE)
+	todo = dir("../bioc_sources", full.names=TRUE)
 	ans = parallel::mclapply(paths, function(x) try(build1(x, dest)))
 	res = list(todo=todo, ans=ans)
 	save(res, file="res.rda")
@@ -17,10 +17,10 @@ parallel_tarballs = function(paths, dest=".", ncores=6) {
 #' @note Elementary filename processing only -- no version checking at this time
 #' @export
 list_packs_to_update = function(srcdir, destdir) {
-	done = dir(destdir, patt="tar.gz")
+	done = dir(destdir, pattern="tar.gz")
 	done = gsub("_.*", "", done)
 	todo = dir(srcdir)
-	todof = dir(srcdir, full=TRUE)
+	todof = dir(srcdir, full.names=TRUE)
 	names(todof) = todo
 	todo = setdiff(todo, done)
 	todof[todo]

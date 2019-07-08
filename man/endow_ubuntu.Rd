@@ -4,7 +4,7 @@
 \alias{endow_ubuntu}
 \title{use sudo apt-get in system() to endow and ubuntu system for BBS activities}
 \usage{
-endow_ubuntu(packtxtfun = default_packtxt, ...)
+endow_ubuntu(packtxtfun = default_packtxt)
 }
 \arguments{
 \item{packtxtfun}{a function providing a path to output of sudo apt --list installed}
@@ -16,5 +16,5 @@ Value of system().
 use sudo apt-get in system() to endow and ubuntu system for BBS activities
 }
 \note{
-Uses sudo apt-get install.
+Uses sudo apt-get install.  Also, there will be a EULA query and a services query that must be handled interactively.
 }

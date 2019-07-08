@@ -1,4 +1,5 @@
 Listing...
+ttf-mscorefonts-installer/bionic,now 3.6ubuntu2 all [installed]
 accountsservice/bionic,now 0.6.45-1ubuntu1 amd64 [installed]
 acl/bionic,now 2.2.52-3build1 amd64 [installed]
 acpid/bionic,now 1:2.0.28-1ubuntu1 amd64 [installed]
@@ -1553,7 +1554,6 @@ tk-dev/bionic,now 8.6.0+9 amd64 [installed]
 tk8.6/bionic,now 8.6.8-4 amd64 [installed,automatic]
 tk8.6-dev/bionic,now 8.6.8-4 amd64 [installed,automatic]
 tmux/bionic-updates,now 2.6-3ubuntu0.1 amd64 [installed]
-ttf-mscorefonts-installer/bionic,now 3.6ubuntu2 all [installed]
 tumbler/bionic,now 0.2.1-0ubuntu1 amd64 [installed,automatic]
 tumbler-common/bionic,now 0.2.1-0ubuntu1 all [installed,automatic]
 tzdata/bionic-updates,bionic-security,now 2019b-0ubuntu0.18.04 all [installed]

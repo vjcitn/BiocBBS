@@ -21,3 +21,16 @@ test_that(
   setwd(curwd)
 })
 
+
+test_that(
+  "build1_with_buildsink produces build log", {
+  curwd = getwd()
+  td = tempdir()
+  setwd(td)
+  getpk("graph")
+  expect_true(dir.exists("graph"))
+  expect_true(file.exists("graph/DESCRIPTION"))
+  bb = build1_with_buildsink("graph", ".")
+  expect_true(file.exists("graph.bldlog.txt"))
+  setwd(curwd)
+})

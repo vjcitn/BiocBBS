@@ -2,9 +2,13 @@
 
 export(bioc_software_packagelist)
 export(build1)
+export(build1_with_buildsink)
 export(default_packtxt)
 export(endow_ubuntu)
 export(getpk)
 export(list_packs_to_update)
 export(parallel_tarballs)
 import(BiocPkgTools)
+importFrom(methods,is)
+importFrom(pkgbuild,build)
+importFrom(utils,installed.packages)
