@@ -27,3 +27,10 @@ build1 = function(srcpath, dest=".", ...) {
         if (!is(n1, "logical")) return(n1)
 	if (n1) try(pkgbuild::build(srcpath, dest, ...))
 }
+
+#' @export
+build1_with_buildsink = function(srcpath, dest=".", ...) {
+	sink(paste(basename(srcpath), ".bldlog.txt", sep=""))
+	build1(srcpath=srcpath, dest=dest, ...)
+	sink(NULL)
+	}
