@@ -83,3 +83,87 @@ writeLines(baddesc, paste0(tf, "/parody/DESCRIPTION"))
 local_gits_behind_bioc(tf)
 writeLines(okdesc, paste0(tf, "/parody/DESCRIPTION")) # restore
 ```
+
+## Summary of simple example
+
+- We use a character vector of package names to
+specify the build task.  The `PackageSet` class
+manages relevant information about these packages:
+    - package names,
+    - dependencies as identified via Depends, Imports, 
+LinkingTo, or Suggests; the latter are essential for 
+building vignettes,
+    - additional information as returned by `BiocPkgTools::biocPkgList()`
+- We use the concepts of `gits` and `gitspath` to refer to
+collections of cloned package source repositories held in a single
+folder.
+    - `populate_local_gits` will attempt to clone sources into
+a specified folder,
+    - `local_gits_behind_bioc` will list packages for which the
+version specified in DESCRIPTION is earlier than the one reported
+in `BiocPkgTools::biocPkgList()`.
+
+# Conceptual framework
+
+Now that we have seen a little bit of the functionality
+of BiocBBSpack, let's try to spell out the concepts
+that must be covered in a build system support package.
+
+## Generating current source set
+
+- `base source provider`: a collection of git repositories owned
+by Bioconductor
+- `package set`: a list of packages and metadata, to be managed with `PackageSet`
+class
+- `gitspath`: a folder where all repositories corresponding to 
+elements of a package set are cloned; these clones are `local_gits`
+- `lagging_local_gits`: clones whose version tag in DESCRIPTION
+is earlier than the corresponding one in the base source provider
+- `make_all_current_in_gitspath`: task of running `git pull` so that
+there are no `lagging_local_gits`
+
+## Provisioning builder infrastructure
+
+- `ubuntu package list`: list of arguments to apt-get install to
+achieve a capable build machine
+- `manual infrastructure spec`: directions to add infrastructure (typically
+runtime libraries and header sets) to achieve a capable build machine
+- `full CRAN package set`: `PackageSet` of all CRAN packages needed
+for a build
+- `current-full-R`: installation of R with all packages required to
+build any Bioconductor package installed
+
+## Generating logs and tarballs 
+
+Package build attempts may fail, and logs must be kept and conveyed.
+When build succeeds, logs and tarballs are generated
+
+- `current log-tarball set`: convergent result of iteration
+of the build system -- we iterate because a given attempt may
+fail owing to resource contention or other random challenges
+- `lagging-log-tarballs`: logs and tarballs for builds of source
+packages whose version is earlier than that at the base source provider
+
+## Generating binaries
+
+- `current binary set`: binary builds of packages from `current log-tarball set`
+- `lagging-binaries`: binary builds with versions earlier than that at
+the base source provider
+
+<!--
+> ls("package:BiocBBSpack")
+ [2] "bioc_software_packagelist"               
+ [3] "build1"                                  
+ [4] "build1_with_buildsink"                   
+ [6] "default_packtxt"                         
+ [7] "endow_ubuntu"                            
+ [8] "full_dep_opts"                           
+ [9] "getpk"                                   
+[10] "installed_r"                             
+[11] "list_packs_to_update"                    
+[12] "local_gits_behind_bioc"                  
+[13] "local_gits_with_uninstalled_dependencies"
+[14] "PackageSet"                              
+[15] "parallel_tarballs"                       
+[16] "populate_local_gits"                     
+-->
