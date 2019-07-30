@@ -1,0 +1,85 @@
+---
+title: "BiocBBSpack: build system concepts in R for Bioconductor"
+author: "Vincent J. Carey, stvjc at channing.harvard.edu"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{BiocBBSpack overview}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    highlight: pygments
+    number_sections: yes
+    theme: united
+    toc: yes
+---
+
+# Introduction
+
+Building and distributing packages for Linux, macOS, and Windows in a continuous
+integration framework is a hallmark of the Bioconductor project.  The
+Bioconductor Build System has evolved over years and has proven
+robust and resilient as the project has grown in scope, and as
+the underlying languages and infrastructures have evolved.
+
+The package BiocBBSpack is an exploration of how recently developed
+tools in R and Bioconductor can contribute to the performance and
+maintainability of the build system.
+
+# Simple example
+
+With an example we illustrate some of the most basic concepts.
+
+## The PackageSet class
+
+```{r lklk}
+suppressPackageStartupMessages({
+library(BiocBBSpack)
+})
+coreset() # a simple collection of relatively lighteight packages
+ps1 = PackageSet(coreset())
+ps1
+ps1 = add_dependencies(ps1)
+ps1
+```
+
+The large number of dependencies for
+this small group of packages is characteristic.
+One reason for working on this package is to provide
+a framework for experimenting with package management
+processes to measure scalability.  We would like to
+pass the responsibility for efficient installation
+of essential packages to R or Bioconductor utilities
+that are designed for this purpose.  In this case,
+our current understanding is that the installation of
+dependencies can be parallelized by passing a suitable
+value for parameter `Ncpus` to `install.packages` via
+`BiocManager::install`.
+
+## Populating a folder with git clones of sources in a PackageSet
+
+```{r dopop}
+tf = tempfile()
+dir.create(tf)
+populate_local_gits(ps1, tf)
+dir(tf)
+```
+
+For a large collection of packages this can be time-consuming but
+can be regarded as a one-time-charge, because updates can be
+conducted as needed via `git pull`.
+
+## Identifying an out-of-date source clone
+
+Here we artificially back-version a package and
+show how to find it, comparing its version value
+to that in the Bioconductor repository.  This task could be carried out
+at the git level, but that can occur in a more mature
+version if necessary.
+```{r lkout}
+okdesc = readLines(paste0(tf, "/parody/DESCRIPTION"))
+baddesc = gsub("Version.*", "Version: 1.0", okdesc)
+writeLines(baddesc, paste0(tf, "/parody/DESCRIPTION"))
+local_gits_behind_bioc(tf)
+writeLines(okdesc, paste0(tf, "/parody/DESCRIPTION")) # restore
+```

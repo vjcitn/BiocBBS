@@ -57,6 +57,7 @@ full_dep_opts = function() c("Depends", "Imports", "LinkingTo", "Suggests")
 setGeneric("add_dependencies", function(pkgset, deps=full_dep_opts(),
       omit="R")
   standardGeneric("add_dependencies"))
+#' @export
 setMethod("add_dependencies", "PackageSet",
    function(pkgset, deps, omit="R") {
    .add_dependencies(pkgset, deps, omit)
