@@ -17,7 +17,7 @@ endow_ubuntu = function(packtxtfun = default_packtxt) {
   tf = tempfile()
   writeLines(string, tf)
   on.exit(unlink(tf))
-  system(paste("sudo apt-get install ", tf, collapse = " "))
+  system(paste("sudo apt-get install ", readLines(tf), collapse = " "))
 }
 
 
