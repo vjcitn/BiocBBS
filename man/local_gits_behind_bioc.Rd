@@ -5,10 +5,12 @@
 \title{check all repos in a folder for version entry less than
 the one reported by BiocPkgTools::biocPkgList}
 \usage{
-local_gits_behind_bioc(gitspath)
+local_gits_behind_bioc(gitspath, biocversion = "3.10")
 }
 \arguments{
 \item{gitspath}{character(1) folder where repos for packages are cloned}
+
+\item{biocversion}{character(1) defaults to "3.10"}
 }
 \value{
 a character vector of names of packages whose git sources are out of date

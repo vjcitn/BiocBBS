@@ -12,27 +12,29 @@ coreset = function() {
 setOldClass("biocPkgList")
 
 setClass("PackageSet",
-  representation(pkgnames="character",
+  representation(pkgnames="character", biocversion="character",
     dependencies="list", info="biocPkgList"))
 
 #' constructor for PackageSet instances
+#' @importFrom methods new
 #' @param cvec character() vector
+#' @param biocversion character(1) defaulting to "3.10"
 #' @note Will issue message if some element of cvec is not
 #' found in BiocPkgTools::biocPkgList() result
 #' @export
-PackageSet = function(cvec) {
- all_info = BiocPkgTools::biocPkgList()
+PackageSet = function(cvec, biocversion="3.10") {
+ all_info = BiocPkgTools::biocPkgList(version=biocversion)
  odd = setdiff(cvec, all_info$Package)
  if (length(odd)>0) message("Some elements of cvec are not in Bioconductor.")
  info = all_info[which(all_info$Package %in% cvec),]
- new("PackageSet", pkgnames=cvec, info=info)
+ new("PackageSet", pkgnames=cvec, info=info, biocversion=biocversion)
 }
 
 setMethod("show", "PackageSet",
   function(object) {
   cat("BiocBBSpack PackageSet instance.\n")
-  cat(sprintf(" There are %s packages listed.\n", 
-    length(object@pkgnames)))
+  cat(sprintf(" There are %s packages listed (Bioconductor version %s).\n", 
+    length(object@pkgnames), object@biocversion))
   cat(sprintf(" There are %s unique dependencies listed.\n", 
     length(unique(unlist(object@dependencies)))))
 })
@@ -46,7 +48,7 @@ full_dep_opts = function() c("Depends", "Imports", "LinkingTo", "Suggests")
 
 .add_dependencies = function(pkgset, deps, omit="R") {
   full_pkg_tbl = BiocPkgTools::buildPkgDependencyDataFrame(
-    dependencies = deps)
+    dependencies = deps, version=pkgset@biocversion)
   kp = full_pkg_tbl[ which(full_pkg_tbl$Package %in% pkgset@pkgnames), ]
   deplist = split(kp$dependency, kp$Package)
   if (length(omit)>0) deplist = lapply(deplist, function(x) setdiff(x, omit))
@@ -57,6 +59,11 @@ full_dep_opts = function() c("Depends", "Imports", "LinkingTo", "Suggests")
 setGeneric("add_dependencies", function(pkgset, deps=full_dep_opts(),
       omit="R")
   standardGeneric("add_dependencies"))
+#' method for adding dependencies to PackageSet as determined by BiocPkgTools
+#' @aliases add_dependencies
+#' @param pkgset PackageSet instance
+#' @param deps character() vector of dependency types (e.g., c("Imports", "Depends")); defaults to `full_dep_opts()`
+#' @param omit character() vector of 'Depends' options to omit -- for example (default) "R"
 #' @export
 setMethod("add_dependencies", "PackageSet",
    function(pkgset, deps, omit="R") {
@@ -86,7 +93,7 @@ populate_local_gits = function(pkgset, gitspath) {
 
 read_descriptions = function(gitspath, fields=c("Package", "Version")) {
  stopifnot(dir.exists(gitspath))
- tops = dir(gitspath, full=TRUE)
+ tops = dir(gitspath, full.names=TRUE)
  ds = paste0(tops, "/DESCRIPTION")
  lapply(ds, read.dcf, fields=fields)
 }
@@ -94,6 +101,7 @@ read_descriptions = function(gitspath, fields=c("Package", "Version")) {
 #' check all repos in a folder for version entry less than
 #' the one reported by BiocPkgTools::biocPkgList
 #' @param gitspath character(1) folder where repos for packages are cloned
+#' @param biocversion character(1) defaults to "3.10"
 #' @note DESCRIPTION will be read from each folder in gitspath.
 #' @return a character vector of names of packages whose git sources are out of date
 #' @examples
@@ -110,9 +118,9 @@ read_descriptions = function(gitspath, fields=c("Package", "Version")) {
 #' setwd(curd)
 #' unlink(tf)
 #' @export
-local_gits_behind_bioc = function(gitspath) {
+local_gits_behind_bioc = function(gitspath, biocversion="3.10") {
  ds = read_descriptions(gitspath)
- curinfo = BiocPkgTools::biocPkgList()
+ curinfo = BiocPkgTools::biocPkgList(version=biocversion)
  pks = sapply(ds, "[", 1)
  info = curinfo[which(curinfo$Package %in% pks), c("Package", "Version")]
  basevers = info$Version
@@ -124,6 +132,8 @@ local_gits_behind_bioc = function(gitspath) {
 }
 
 #' provide a list of packages for which dependencies are not installed
+#' @param gitspath character(1) path to cloned repos
+#' @param dependencies character vector of dependency types, probably don't need "Suggests"
 #' @export
 local_gits_with_uninstalled_dependencies = function(gitspath,
    dependencies = c("Depends", "Imports", "LinkingTo")) {

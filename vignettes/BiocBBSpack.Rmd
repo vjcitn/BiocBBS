@@ -37,7 +37,7 @@ suppressPackageStartupMessages({
 library(BiocBBSpack)
 })
 coreset() # a simple collection of relatively lighteight packages
-ps1 = PackageSet(coreset())
+ps1 = PackageSet(coreset(), biocversion="3.10")
 ps1
 ps1 = add_dependencies(ps1)
 ps1
@@ -101,7 +101,9 @@ folder.
 a specified folder,
     - `local_gits_behind_bioc` will list packages for which the
 version specified in DESCRIPTION is earlier than the one reported
-in `BiocPkgTools::biocPkgList()`.
+in `BiocPkgTools::biocPkgList()`,
+    - crucially, there is a slot in the PackageSet class
+specifying the Bioconductor version relevant for object use.
 
 # Conceptual framework
 
