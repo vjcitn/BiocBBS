@@ -2,13 +2,12 @@
 #' @param paths vector of paths to R package source folders
 #' @param dest location where pkgbuild::build will deliver tarball
 #' @param ncores sets options(mc.cores) value
+#' @return the result of parallel::mclapply, which may include some try-error objects
+#' @note This function will call `build1_with_buildsink` to capture the build log messages in a file.  The file will have suffix `.bldlog.txt`.
 #' @export
 parallel_tarballs = function(paths, dest=".", ncores=6) {
 	options(mc.cores=ncores)
-	todo = dir("../bioc_sources", full.names=TRUE)
-	ans = parallel::mclapply(paths, function(x) try(build1(x, dest)))
-	res = list(todo=todo, ans=ans)
-	save(res, file="res.rda")
+	parallel::mclapply(paths, function(x) try(build1_with_buildsink(x, dest)))
 }
 
 #' compare destdir to srcdir and list package paths needing tarballs

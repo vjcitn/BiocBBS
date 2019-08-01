@@ -13,6 +13,12 @@ parallel_tarballs(paths, dest = ".", ncores = 6)
 
 \item{ncores}{sets options(mc.cores) value}
 }
+\value{
+the result of parallel::mclapply, which may include some try-error objects
+}
 \description{
 create tarballs from source folders
+}
+\note{
+This function will call `build1_with_buildsink` to capture the build log messages in a file.  The file will have suffix `.bldlog.txt`.
 }
