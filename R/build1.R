@@ -27,7 +27,11 @@ prep1 = function(pkgname) {
 #' is returned.
 #' @export
 build1 = function(srcpath, dest=".", ...) {
-	n1 = prep1(basename(srcpath))
+	n1 = try(prep1(basename(srcpath)))
+        if (inherits(n1, "try-error")) {
+          message(paste(srcpath))
+          message("cannot be prepared")
+          }
         if (!is(n1, "logical")) return(n1)
 	if (n1) try(pkgbuild::build(srcpath, dest, ...))
 }
