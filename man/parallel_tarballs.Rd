@@ -21,4 +21,6 @@ create tarballs from source folders
 }
 \note{
 This function will call `build1_with_buildsink` to capture the build log messages in a file.  The file will have suffix `.bldlog.txt`.
+If the build for package i throws a try-error, that object will be saved in an
+object basename(paths[i])_err, serialized to basename(paths[i])_err.rda
 }
