@@ -1,0 +1,75 @@
+
+July 31
+
+> library(BiocPkgTools)
+> all3.10 = biocPkgList("3.10")
+> dim(all3.10)
+[1] 1746   46
+
+> ps3.10 = PackageSet(all3.10$Package)
+> ps3.10
+BiocBBSpack PackageSet instance.
+ There are 1746 packages listed (Bioconductor version 3.10).
+ There are 0 unique dependencies listed.
+> system.time(populate_local_gits(ps3.10, "bioc_sources_3.10"))
+
+That took 90 minutes to do 1746 package checkouts
+
+stvjc@js-104-85:/vol_b$ du -sh bioc_sources_3.10
+29G	bioc_sources_3.10
+
+in the 90 minute interval, 2 packages were updated
+
+> local_gits_behind_bioc("bioc_sources_3.10")
+[1] "genphen" "scater" 
+
+That seems wrong.  The version comparison needs to
+improve.
+
+to provision the builder's R with parallel installation,
+we use it to install all packages; if it succeeds we
+know we can make all tarballs
+
+ps = BiocPkgTools::biocPkgList(version="3.10")
+library(BiocBBSpack)
+pp = PackageSet(ps$Package)
+provision_r = function(pkgset, ncpu=6) {
+	vec = pkgset@pkgnames
+	BiocManager::install(vec, Ncpus=ncpu)
+}
+provision_r(pp)
+	
+after this first provisioning, future reprovisionings
+should only occur via BiocManager::update
+
+2h20m to install all packages to get to 3355 installed.
+
+The R image grew to 78GB
+
+The following code builds about 2 packages per minute
+
+library(BiocBBSpack)
+testpacks = dir("../bioc_sources_3.10", full.names=TRUE)
+demo_run = parallel_tarballs(testpacks, dest="../bioc_tarballs_3.10",
+			        ncores=7)
+saveRDS(demo_run, file="demo_run.rda")
+
+at 676 packages attempted the failure rate is about 6%
+
+destiny failed because jupyter was not installed
+
+-- a few packages failed to build for lack of infrastructure
+
+libprotobuf-dev
+
+ sudo add-apt-repository -y ppa:opencpu/poppler
+    sudo apt-get update
+    sudo sudo apt-get install -y libpoppler-cpp-dev
+
+Somehow these packages needed to be installed
+
+install(c("pathological", "phateR", "protolite", "opencpu", 
+"MafDb.gnomADex.r2.1.hs37d5", "pdftools", "MSGFplus"))
+
+The last one has a problem with Java
+
