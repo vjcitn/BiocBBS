@@ -154,7 +154,8 @@ local_gits_with_uninstalled_dependencies = function(gitspath,
 #' @export
 bbs_check_built = function (x) 
 {
-    check_built(x, args = c("--no-build-vignettes", "--no-install"), 
+    if (!requireNamespace("devtools")) stop("install devtools to use this function")
+    devtools::check_built(x, args = c("--no-build-vignettes", "--no-install"), 
         check_dir = ".")
     unlink(basename(x))
     pn = gsub("_.*", "", basename(x))
