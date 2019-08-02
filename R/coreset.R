@@ -148,3 +148,18 @@ local_gits_with_uninstalled_dependencies = function(gitspath,
  hasabs = sapply(chk, function(x) length(x)>0)
  chk[hasabs]
 }
+
+#' do check_built and clean up
+#' @param x path to package tarball
+#' @export
+bbs_check_built = function (x) 
+{
+    check_built(x, args = c("--no-build-vignettes", "--no-install"), 
+        check_dir = ".")
+    unlink(basename(x))
+    pn = gsub("_.*", "", basename(x))
+    unlink(qq <- paste0(pn, ".Rcheck/00_pkg_src"), recursive=TRUE, force=TRUE)
+    print(qq)
+    unlink(paste0(pn, ".Rcheck/", pn), recursive=TRUE, force=TRUE)
+}
+
