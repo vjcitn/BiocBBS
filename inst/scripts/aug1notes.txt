@@ -73,3 +73,40 @@ install(c("pathological", "phateR", "protolite", "opencpu",
 
 The last one has a problem with Java
 
+--- AUGUST 6 ---
+
+parallel_tarballs(allp, dest="../bioc_tarballs_3.10", ncores=20)
+2.5 hours on xxlarge for 1511 packages.  need to understand what
+a naive iteration will give with same number of cores
+
+there were 235 packages attempted, 66 successes on a simple iteration
+
+now reduce cores to 10
+
+iterating gets us to 1634
+
+some utilities:
+
+redo.R:
+
+library(BiocBBSpack)
+done1 = basename(dir("../bioc_tarballs_3.10", full=TRUE))
+done2 = basename(dir("../aug6_try2", full=TRUE))
+done = c(done1, done2)
+done = gsub("_.*" , "", done)
+done[1:5]
+allsrc = dir("../bioc_sources_3.10")
+undone = setdiff(allsrc, done)
+print(length(undone))
+undone = paste0("../bioc_sources_3.10/", undone)
+parallel_tarballs(undone, "../aug6_try2", ncores=10)
+
+
+bash_profile:
+
+export TMPDIR=/vol_b/R_TMP
+export PATH=$PATH:/vol_b/R-361-dist/bin
+export ROOTSYS=/usr/local/root-v5-34-38
+export PATH=$ROOTSYS/bin:$PATH
+export LD_LIBRARY_PATH=:$LD_LIBRARY_PATH:$ROOTSYS/lib
+
