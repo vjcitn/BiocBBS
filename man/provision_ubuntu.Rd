@@ -17,4 +17,7 @@ use sudo apt-get in system() to provision an ubuntu system for BBS activities
 }
 \note{
 Uses sudo apt-get install.  Also, there will be a EULA query and a services query that must be handled interactively.
+it may be necessary to use commands  sudo add-apt-repository -y ppa:opencpu/poppler;
+   sudo apt-get update
+   sudo sudo apt-get install -y libpoppler-cpp-dev
 }
