@@ -10,7 +10,7 @@
 #' setwd(wd)
 #' @export
 getpk = function (x) 
-system(sprintf("git clone https://git.bioconductor.org/packages/%s.git", 
+system(sprintf("git clone --depth 1 https://git.bioconductor.org/packages/%s.git", 
     x))
 
 #' get vector of Bioc software package names
