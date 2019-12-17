@@ -4,8 +4,10 @@
 \alias{local_gits_with_uninstalled_dependencies}
 \title{provide a list of packages for which dependencies are not installed}
 \usage{
-local_gits_with_uninstalled_dependencies(gitspath,
-  dependencies = c("Depends", "Imports", "LinkingTo"))
+local_gits_with_uninstalled_dependencies(
+  gitspath,
+  dependencies = c("Depends", "Imports", "LinkingTo")
+)
 }
 \arguments{
 \item{gitspath}{character(1) path to cloned repos}

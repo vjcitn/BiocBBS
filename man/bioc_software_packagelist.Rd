@@ -4,7 +4,12 @@
 \alias{bioc_software_packagelist}
 \title{get vector of Bioc software package names}
 \usage{
-bioc_software_packagelist()
+bioc_software_packagelist(manifest_repo_dir, release = "master")
+}
+\arguments{
+\item{manifest_repo_dir}{character(1) folder where git@git.bioconductor.org:admin/manifest has been cloned}
+
+\item{release}{character(1) git checkout will be run for this tag}
 }
 \value{
 character vector
