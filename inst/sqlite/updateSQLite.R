@@ -1,0 +1,6 @@
+library(RSQLite)
+library(BiocBBSpack)
+data(demo_rcmdchk_out)
+dfs = rcc_to_dataframes(demo_rcmdchk_out)
+#con2 <- dbConnect(RSQLite::SQLite(), "demo2.sqlite", flags=SQLITE_RWC)
+#dbWriteTable(con2, "desc", dfs$desc)

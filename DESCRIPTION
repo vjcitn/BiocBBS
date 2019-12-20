@@ -1,11 +1,11 @@
 Package: BiocBBSpack
 Title: support for build system
 Description: Provide R-based support for build system.
-Version: 0.0.23
+Version: 0.0.26
 Author: Vince Carey
 Suggests: knitr, testthat, devtools
 Depends: R (>= 3.6), methods, BiocPkgTools, pkgbuild
-Imports: BiocManager, utils, shiny, rcmdcheck
+Imports: BiocManager, utils, shiny, rcmdcheck, RSQLite
 Maintainer: VJ Carey <stvjc@channing.harvard.edu>
 License: Artistic-2.0
 LazyLoad: yes

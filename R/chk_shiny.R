@@ -8,7 +8,6 @@
 #' @import shiny
 #' @param lis output of rcmdcheck for one package
 #' @note in development
-#' @export
 chk_shiny = function(lis) {
   ui = fluidPage(
    sidebarLayout(
