@@ -32,7 +32,7 @@ build1 = function(srcpath, dest=".", ...) {
           message("cannot be prepared")
           }
         if (!is(n1, "logical")) return(n1)
-	if (n1) try(pkgbuild::build(srcpath, dest, ...))
+	if (n1) try(pkgbuild::build(srcpath, dest, clean_doc=TRUE, ...)) # avoid query
 }
 
 #' run build1 and capture the R CMD build log
