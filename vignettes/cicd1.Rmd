@@ -104,7 +104,7 @@ a snapshot of the associated repositories.
 
 ```{r lkzip}
 library(BiocBBSpack)
-coreset()
+bioc_coreset()
 ```
 
 In the following, we unzip the snapshot in a temporary
@@ -178,13 +178,13 @@ library(dplyr)
 library(magrittr)
 })
 dd = buildPkgDependencyDataFrame()
-dfc = dd %>% filter(Package %in% coreset() & dependency %in% coreset()) 
+dfc = dd %>% filter(Package %in% bioc_coreset() & dependency %in% bioc_coreset()) 
 gg = buildPkgDependencyIgraph(dfc)
 plot(gg)
 ```
 Some of the packages in the small set are isolated.
 ```{r lkiso}
-setdiff(coreset(), union(dfc$Package, dfc$dependency))
+setdiff(bioc_coreset(), union(dfc$Package, dfc$dependency))
 ```
 
 # Supporting developers with build system enhancements

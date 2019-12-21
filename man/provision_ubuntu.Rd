@@ -2,7 +2,8 @@
 % Please edit documentation in R/endow_ubuntu.R
 \name{provision_ubuntu}
 \alias{provision_ubuntu}
-\title{use sudo apt-get in system() to provision an ubuntu system for BBS activities}
+\title{NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
+use sudo apt-get in system() to provision an ubuntu system for BBS activities}
 \usage{
 provision_ubuntu(packtxtfun = default_packtxt)
 }
@@ -13,6 +14,7 @@ provision_ubuntu(packtxtfun = default_packtxt)
 Value of system().
 }
 \description{
+NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
 use sudo apt-get in system() to provision an ubuntu system for BBS activities
 }
 \note{

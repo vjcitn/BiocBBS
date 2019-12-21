@@ -1,3 +1,4 @@
+# NOT EXPORTED
 
 #> names(gwascat_chk)
 # [1] "package"      "version"      "notes"        "warnings"     "errors"      
@@ -41,7 +42,7 @@ runApp(list(ui=ui, server=server))
 #' @param folder source folder for R package
 #' @param error_on character(1) see rcmdcheck::rcmdcheck; default is to proceed when error occurs in a check stage
 #' @export
-ibc = function(folder, error_on="never") {
+inst_build_check = function(folder, error_on="never") {
  td = tempdir()
  curd = getwd()
  on.exit(setwd(curd))

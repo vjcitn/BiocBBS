@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_for_update_and_pull.R
 \name{check_for_update_and_pull}
 \alias{check_for_update_and_pull}
-\title{check a repo for activity at remote, specifically modifications to DESCRIPTION}
+\title{check a git repo for activity at remote, specifically modifications to DESCRIPTION}
 \usage{
 check_for_update_and_pull(repo_path)
 }
@@ -13,10 +13,12 @@ check_for_update_and_pull(repo_path)
 a vector of results of git diff
 }
 \description{
-check a repo for activity at remote, specifically modifications to DESCRIPTION
+check a git repo for activity at remote, specifically modifications to DESCRIPTION
 }
 \note{
 Main purpose is to achieve the side effect of git pull in the 
 repo when appropriate.  R session visits repo, performs git commands using
 system(), and returns to folder where this function was called.
+Probably should add code to report on the difference seen, checking explicitly
+for version tag increase.
 }

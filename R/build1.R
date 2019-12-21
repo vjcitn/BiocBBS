@@ -15,7 +15,7 @@ prep1 = function(pkgname) {
 	TRUE
 }
 
-#' prepare and build a package tarball
+#' prepare and build a package tarball, not exported because we use build1_with_buildsink to capture log
 #' @importFrom methods is
 #' @importFrom utils installed.packages
 #' @importFrom pkgbuild build
@@ -25,7 +25,6 @@ prep1 = function(pkgname) {
 #' @note If preparation for building triggers a try-error, the resulting 
 #' exception object is returned.  Otherwise the result of pkgbuild::build()
 #' is returned.
-#' @export
 build1 = function(srcpath, dest=".", ...) {
 	n1 = try(prep1(basename(srcpath)))
         if (inherits(n1, "try-error")) {

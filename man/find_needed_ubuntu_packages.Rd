@@ -2,11 +2,13 @@
 % Please edit documentation in R/endow_ubuntu.R
 \name{find_needed_ubuntu_packages}
 \alias{find_needed_ubuntu_packages}
-\title{list ubuntu packages that are needed but have not been installed}
+\title{NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
+list ubuntu packages that are needed but have not been installed}
 \usage{
 find_needed_ubuntu_packages()
 }
 \description{
+NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
 list ubuntu packages that are needed but have not been installed
 }
 \note{

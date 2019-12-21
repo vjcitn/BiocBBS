@@ -5,12 +5,12 @@
 \title{check all repos in a folder for version entry less than
 the one reported by BiocPkgTools::biocPkgList}
 \usage{
-local_gits_behind_bioc(gitspath, biocversion = "3.10")
+local_gits_behind_bioc(gitspath, biocversion = "3.11")
 }
 \arguments{
 \item{gitspath}{character(1) folder where repos for packages are cloned}
 
-\item{biocversion}{character(1) defaults to "3.10"}
+\item{biocversion}{character(1) defaults to "3.11"}
 }
 \value{
 a character vector of names of packages whose git sources are out of date
@@ -23,14 +23,14 @@ the one reported by BiocPkgTools::biocPkgList
 DESCRIPTION will be read from each folder in gitspath.
 }
 \examples{
-ps = PackageSet(coreset()[c(3,8)]) # two simple packages
+ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
 tf = tempfile()
 dir.create(tf)
 ll = populate_local_gits(ps, tf)
 curd = getwd()
 setwd(tf)
 pd = readLines("parody/DESCRIPTION")
-pd = gsub("Version.*", "Version: 1.0", pd)
+pd = gsub("Version.*", "Version: 1.0", pd) # version here < version in git so need to update here
 writeLines(pd, "parody/DESCRIPTION")
 local_gits_behind_bioc(tf)
 setwd(curd)

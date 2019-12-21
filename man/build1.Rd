@@ -2,7 +2,7 @@
 % Please edit documentation in R/build1.R
 \name{build1}
 \alias{build1}
-\title{prepare and build a package tarball}
+\title{prepare and build a package tarball, not exported because we use build1_with_buildsink to capture log}
 \usage{
 build1(srcpath, dest = ".", ...)
 }
@@ -14,7 +14,7 @@ build1(srcpath, dest = ".", ...)
 \item{\dots}{pass to pkgbuild::build}
 }
 \description{
-prepare and build a package tarball
+prepare and build a package tarball, not exported because we use build1_with_buildsink to capture log
 }
 \note{
 If preparation for building triggers a try-error, the resulting 

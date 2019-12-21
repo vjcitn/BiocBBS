@@ -2,7 +2,8 @@
 % Please edit documentation in R/coreset.R
 \name{bbs_check_built}
 \alias{bbs_check_built}
-\title{do check_built and clean up}
+\title{not exported, rely instead on rcmdcheck
+do check_built and clean up}
 \usage{
 bbs_check_built(x)
 }
@@ -10,5 +11,6 @@ bbs_check_built(x)
 \item{x}{path to package tarball}
 }
 \description{
+not exported, rely instead on rcmdcheck
 do check_built and clean up
 }

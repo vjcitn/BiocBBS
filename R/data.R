@@ -4,3 +4,10 @@
 #' @examples
 #' head(installed_r)
 "installed_r"
+
+#' a list of rcmdcheck::rcmdcheck results for demonstration purposes, produced dec 2019
+#' @docType data
+#' @format list 
+#' @examples
+#' names(demo_rcmdchk_out)
+"demo_rcmdchk_out"

@@ -1,9 +1,9 @@
 #' define a small collection of packages of interest
 #' @return a character vector
 #' @examples
-#' coreset()
+#' bioc_coreset()
 #' @export
-coreset = function() {
+bioc_coreset = function() {
  c("SummarizedExperiment", "GenomicRanges",
    "BiocFileCache", "Rsamtools", "rhdf5", 
    "SingleCellExperiment", "ensembldb", "parody")
@@ -17,12 +17,13 @@ setClass("PackageSet",
 
 #' constructor for PackageSet instances
 #' @importFrom methods new
+#' @import BiocPkgTools
 #' @param cvec character() vector
-#' @param biocversion character(1) defaulting to "3.10"
+#' @param biocversion character(1) defaulting to "3.11"
 #' @note Will issue message if some element of cvec is not
 #' found in BiocPkgTools::biocPkgList() result
 #' @export
-PackageSet = function(cvec, biocversion="3.10") {
+PackageSet = function(cvec, biocversion="3.11") {
  all_info = BiocPkgTools::biocPkgList(version=biocversion)
  odd = setdiff(cvec, all_info$Package)
  if (length(odd)>0) message("Some elements of cvec are not in Bioconductor.")
@@ -75,7 +76,7 @@ setMethod("add_dependencies", "PackageSet",
 #' @param gitspath character(1) folder to be created if it does not exist
 #' @return invisibly, the list of folders created under gitspath
 #' @examples
-#' ps = PackageSet(coreset()[c(3,8)]) # two simple packages
+#' ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
 #' td = tempdir()
 #' ll = populate_local_gits(ps, td)
 #' ll
@@ -101,24 +102,24 @@ read_descriptions = function(gitspath, fields=c("Package", "Version")) {
 #' check all repos in a folder for version entry less than
 #' the one reported by BiocPkgTools::biocPkgList
 #' @param gitspath character(1) folder where repos for packages are cloned
-#' @param biocversion character(1) defaults to "3.10"
+#' @param biocversion character(1) defaults to "3.11"
 #' @note DESCRIPTION will be read from each folder in gitspath.
 #' @return a character vector of names of packages whose git sources are out of date
 #' @examples
-#' ps = PackageSet(coreset()[c(3,8)]) # two simple packages
+#' ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
 #' tf = tempfile()
 #' dir.create(tf)
 #' ll = populate_local_gits(ps, tf)
 #' curd = getwd()
 #' setwd(tf)
 #' pd = readLines("parody/DESCRIPTION")
-#' pd = gsub("Version.*", "Version: 1.0", pd)
+#' pd = gsub("Version.*", "Version: 1.0", pd) # version here < version in git so need to update here
 #' writeLines(pd, "parody/DESCRIPTION")
 #' local_gits_behind_bioc(tf)
 #' setwd(curd)
 #' unlink(tf)
 #' @export
-local_gits_behind_bioc = function(gitspath, biocversion="3.10") {
+local_gits_behind_bioc = function(gitspath, biocversion="3.11") {
  ds = read_descriptions(gitspath)
  curinfo = BiocPkgTools::biocPkgList(version=biocversion)
  pks = sapply(ds, "[", 1)
@@ -131,10 +132,10 @@ local_gits_behind_bioc = function(gitspath, biocversion="3.10") {
  pks[chk]
 }
 
+#' not clear that this is needed
 #' provide a list of packages for which dependencies are not installed
 #' @param gitspath character(1) path to cloned repos
 #' @param dependencies character vector of dependency types, probably don't need "Suggests"
-#' @export
 local_gits_with_uninstalled_dependencies = function(gitspath,
    dependencies = c("Depends", "Imports", "LinkingTo")) {
  pks = dir(gitspath)
@@ -149,9 +150,9 @@ local_gits_with_uninstalled_dependencies = function(gitspath,
  chk[hasabs]
 }
 
+#' not exported, rely instead on rcmdcheck
 #' do check_built and clean up
 #' @param x path to package tarball
-#' @export
 bbs_check_built = function (x) 
 {
     if (!requireNamespace("devtools")) stop("install devtools to use this function")

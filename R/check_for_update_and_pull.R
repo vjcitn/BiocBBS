@@ -1,10 +1,12 @@
 
-#' check a repo for activity at remote, specifically modifications to DESCRIPTION
+#' check a git repo for activity at remote, specifically modifications to DESCRIPTION
 #' @param repo_path character(1) path for a git repo
 #' @return a vector of results of git diff
 #' @note Main purpose is to achieve the side effect of git pull in the 
 #' repo when appropriate.  R session visits repo, performs git commands using
 #' system(), and returns to folder where this function was called.
+#' Probably should add code to report on the difference seen, checking explicitly
+#' for version tag increase.
 #' @export
 check_for_update_and_pull = function( repo_path ) {
 	cmd1 = "git fetch origin master"

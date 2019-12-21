@@ -2,7 +2,8 @@
 % Please edit documentation in R/endow_ubuntu.R
 \name{default_packtxt}
 \alias{default_packtxt}
-\title{output of sudo apt list --installed for a suitable ubuntu environment}
+\title{NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
+output of sudo apt list --installed for a suitable ubuntu environment}
 \usage{
 default_packtxt()
 }
@@ -10,5 +11,6 @@ default_packtxt()
 a path
 }
 \description{
+NOT EXPORTED -- use docker, bioconductor/bioconductor_full:(devel or release)
 output of sudo apt list --installed for a suitable ubuntu environment
 }

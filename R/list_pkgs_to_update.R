@@ -1,5 +1,5 @@
 find_impacted = function(beh, vers, ddf=NULL) {
-	if (is.null(ddf)) ddf = buildPkgDependencyDataFrame(vers=vers,
+	if (is.null(ddf)) ddf = BiocPkgTools::buildPkgDependencyDataFrame(vers=vers,
 	    dependencies=c("Depends", "Imports", "Suggests", "LinkingTo"))
 	newpks = unlist(ddf[which(ddf$dependency %in% beh), "Package"])
 	if (all(newpks %in% beh)) return(beh)

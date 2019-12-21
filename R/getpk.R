@@ -32,7 +32,7 @@ bioc_software_packagelist = function(manifest_repo_dir, release="master") {
 }
 
 bioc_software_packagelist_old = function() {
-	ddf = buildPkgDependencyDataFrame()
+	ddf = BiocPkgTools::buildPkgDependencyDataFrame()
 	unique(ddf$Package)
 }
 

@@ -2,7 +2,8 @@
 % Please edit documentation in R/coreset.R
 \name{local_gits_with_uninstalled_dependencies}
 \alias{local_gits_with_uninstalled_dependencies}
-\title{provide a list of packages for which dependencies are not installed}
+\title{not clear that this is needed
+provide a list of packages for which dependencies are not installed}
 \usage{
 local_gits_with_uninstalled_dependencies(
   gitspath,
@@ -15,5 +16,6 @@ local_gits_with_uninstalled_dependencies(
 \item{dependencies}{character vector of dependency types, probably don't need "Suggests"}
 }
 \description{
+not clear that this is needed
 provide a list of packages for which dependencies are not installed
 }
