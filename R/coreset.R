@@ -5,8 +5,9 @@
 #' @export
 bioc_coreset = function() {
  c("SummarizedExperiment", "GenomicRanges",
-   "BiocFileCache", "Rsamtools", "rhdf5", 
-   "SingleCellExperiment", "ensembldb", "parody")
+   "BiocFileCache", "Rsamtools", "rhdf5", "GEOquery",
+   "SingleCellExperiment", "ensembldb", "parody",
+   "DESeq2", "EDASeq", "HCAExplorer", "bsseq")
 }
 
 setOldClass("biocPkgList")
