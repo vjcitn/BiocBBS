@@ -24,10 +24,12 @@ stopifnot(is(con, "SQLiteConnection"))
         width=3
          ),
         mainPanel(tabsetPanel(
+         tabPanel("bcchk", uiOutput("bcchk")),
          tabPanel("notes", verbatimTextOutput("notes")),
          tabPanel("errors", verbatimTextOutput("errors")),
          tabPanel("inst", verbatimTextOutput("inst")),
-         tabPanel("desc", verbatimTextOutput("desc"))
+         tabPanel("desc", verbatimTextOutput("desc")),
+         tabPanel("about", uiOutput("about"))
          )
         )
        )
@@ -55,6 +57,15 @@ stopifnot(is(con, "SQLiteConnection"))
            lis = dbGetQuery(con, paste0("select * from desc where package = '", input$pkchoice, "'"))
            cat(unlist(lis$description), sep="\n")
            })
+        output$bcchk = renderUI({
+           lis = dbGetQuery(con, paste0("select * from bccheck where package = '", input$pkchoice, "'"))
+           do.call(helpText, process_log(lis$bcchk))
+           })
+        output$about = renderUI({
+          helpText("This app uses rcmdcheck::rcmdcheck, which parses and organizes the check log to separate 
+           errors, warnings, and notes.  It also ingests the BiocCheck log and decorates it lightly 
+           to simplify discovery of adverse conditions.")
+           }) 
         observeEvent(input$stopBtn, {
             dbDisconnect(con)
             stopApp(returnValue = NULL)
@@ -63,3 +74,47 @@ stopifnot(is(con, "SQLiteConnection"))
     runApp(list(ui = ui, server = server))
 }
 
+
+format_bcchk = function(txt, out_suffix=".html") {
+ cur = readLines(txt)
+ cur = gsub("(\\* WARNING..*|^Warning..*)", "</pre><mark>\\1</mark><pre>", cur) 
+ cur = gsub("(\\* NOTE..*)", "</pre><mark>\\1</mark><pre>", cur) 
+ cur = gsub("(^ERROR..*|^WARNING..*|^NOTE..*)", "</pre><mark>\\1</mark><pre>", cur) 
+ writeLines(c("<pre>", cur, "</pre>"), paste0(txt, out_suffix))
+}
+
+
+# find * NOTE, WARNING, ERROR and produce a list for markup
+process_log = function(curtxt, 
+    event_regexp = c("\\* NOTE..*|\\* WARNING..*|\\* ERROR..*"), ...) {
+#  curtxt = readLines(txt)
+  nlines = length(curtxt)
+  evlocs = grep(event_regexp, curtxt)
+  dev = diff(evlocs)
+  if (any(dev==1)) stop("contiguous events -- code needs revision")
+#
+# curtxt divides into event and non-event text
+# non-event chunks are marked pre(), events marked strong()
+#
+# assume first and last chunks free of events
+  markedtxt = vector("list", 2*length(evlocs)+1)
+  curch = 1
+  cursor = 1
+  for (i in seq_along(evlocs)) {
+    markedtxt[[curch]] = pre(xx <- paste(curtxt[cursor:(evlocs[i]-1)],collapse="\n"))
+    curch = curch+1
+    markedtxt[[curch]] = strong(paste(curtxt[evlocs[i]], collapse="\n"))
+    cursor = evlocs[i]+1
+    curch = curch+1
+    }
+  markedtxt[[curch]] = pre(paste(curtxt[cursor:nlines], collapse="\n"))
+  markedtxt
+}
+
+
+bcchk_to_df = function(chktxt, pkgname=NULL) {
+ x = readLines(chktxt)
+ if (is.null(pkgname)) pkgname = strsplit(chktxt, "_")[[1]][1]
+ data.frame(package=pkgname, bcchk=x)
+}
+ 
