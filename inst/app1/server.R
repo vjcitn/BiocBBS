@@ -7,6 +7,10 @@
         putmeta = reactive({
             dbGetQuery(con, paste0("select * from basic where package = '", input$pkchoice, "'"))
             })
+        output$vers = renderPrint({
+           cat("BiocCheck result for\n")
+           cat(unlist(putmeta()), "\n---\n")
+           })
         output$notes = renderPrint({
            lis = dbGetQuery(con, paste0("select * from notes where package = '", input$pkchoice, "'"))
            cat(unlist(putmeta()), "\n---\n")

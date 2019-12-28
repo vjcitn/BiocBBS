@@ -3,7 +3,10 @@
 #' @importFrom RSQLite dbConnect SQLite SQLITE_RO dbGetQuery dbDisconnect dbReadTable
 #' @param con SQLiteConnection where tables of check results from rcmdcheck are stored
 #' @note dbDisconnect is run if the stop button is pressed to end shiny session.  If
-#' stopped via ctrl-C or error, the connection may remain and require closure.
+#' stopped via ctrl-C or error, the connection may remain and require closure.  N.B.  The
+#' source codes for this app are in inst/app1, to simplify contribution to shinyapps.io.
+#' Interactive execution proceeds by copying the server and ui files to temporary folder
+#' where `shiny::runApp()` is executed.
 #' @examples
 #' if (interactive()) {
 #'  con = RSQLite::dbConnect(RSQLite::SQLite(), 
@@ -11,7 +14,19 @@
 #'  browse_checks(con)
 #' }
 #' @export
-browse_checks = function (con) 
+browse_checks = function(con) {
+ od = getwd()
+ on.exit(setwd(od))
+ uif = system.file("app1/ui.R", package="BiocBBSpack")
+ servf = system.file("app1/server.R", package="BiocBBSpack")
+ td = tempdir()
+ setwd(td)
+ file.copy(uif, ".", overwrite=TRUE)
+ file.copy(servf, ".", overwrite=TRUE)
+ shiny::runApp()
+}
+
+old_browse_checks = function (con) 
 {
 basic = dbReadTable(con, "basic")
 stopifnot(is(con, "SQLiteConnection"))

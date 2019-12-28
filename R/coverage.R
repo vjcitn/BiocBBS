@@ -1,6 +1,6 @@
 
 #' @export
-covr_tab = function (x, group = c("filename", "functions"), by = "line", 
+covr_tab = function (x, group = c("functions"), by = "line", 
     ...) UseMethod("covr_tab")
 
 #' produce textual summary of covr analysis
@@ -9,9 +9,10 @@ covr_tab = function (x, group = c("filename", "functions"), by = "line",
 #' @param group character(1)
 #' @param by character(1)
 #' @param \dots not used
-#' @note This is because package_coverage uses message to report summaries.
+#' @note This is because package_coverage uses message to report summaries.  We
+#' use the 'functions' setting for 'group' by default.
 #' @export
-covr_tab.coverage = function (x, group = c("filename", "functions"), by = "line", 
+covr_tab.coverage = function (x, group = c("functions"), by = "line", 
     ...) 
 {
     if (length(x) == 0) {

@@ -14,7 +14,10 @@ developer report on package check process in shiny
 }
 \note{
 dbDisconnect is run if the stop button is pressed to end shiny session.  If
-stopped via ctrl-C or error, the connection may remain and require closure.
+stopped via ctrl-C or error, the connection may remain and require closure.  N.B.  The
+source codes for this app are in inst/app1, to simplify contribution to shinyapps.io.
+Interactive execution proceeds by copying the server and ui files to temporary folder
+where `shiny::runApp()` is executed.
 }
 \examples{
 if (interactive()) {

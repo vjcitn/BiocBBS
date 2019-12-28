@@ -11,7 +11,7 @@
         width=3
          ),
         mainPanel(tabsetPanel(
-         tabPanel("bcchk", uiOutput("bcchk")),
+         tabPanel("bcchk", verbatimTextOutput("vers"), uiOutput("bcchk")),
          tabPanel("notes", verbatimTextOutput("notes")),
          tabPanel("errors", verbatimTextOutput("errors")),
          tabPanel("inst", verbatimTextOutput("inst")),

@@ -4,7 +4,7 @@
 \alias{covr_tab.coverage}
 \title{produce textual summary of covr analysis}
 \usage{
-\method{covr_tab}{coverage}(x, group = c("filename", "functions"), by = "line", ...)
+\method{covr_tab}{coverage}(x, group = c("functions"), by = "line", ...)
 }
 \arguments{
 \item{x}{result of `package_coverage`}
@@ -19,5 +19,6 @@
 produce textual summary of covr analysis
 }
 \note{
-This is because package_coverage uses message to report summaries.
+This is because package_coverage uses message to report summaries.  We
+use the 'functions' setting for 'group' by default.
 }
