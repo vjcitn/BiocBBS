@@ -4,7 +4,7 @@
 \alias{browse_checks}
 \title{developer report on package check process in shiny}
 \usage{
-browse_checks(con)
+browse_checks()
 }
 \arguments{
 \item{con}{SQLiteConnection where tables of check results from rcmdcheck are stored}
@@ -23,6 +23,7 @@ where `shiny::runApp()` is executed.
 if (interactive()) {
  con = RSQLite::dbConnect(RSQLite::SQLite(), 
   system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
- browse_checks(con)
+ RSQLite::dbListTables(con)
+ browse_checks()
 }
 }

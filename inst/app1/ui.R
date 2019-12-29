@@ -1,5 +1,6 @@
     con = RSQLite::dbConnect(RSQLite::SQLite(),
-           system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
+            system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
+           #"demo3.sqlite", flags=RSQLite::SQLITE_RO)
     basic = RSQLite::dbReadTable(con, "basic")
 
     ui = fluidPage(
@@ -14,6 +15,7 @@
          tabPanel("bcchk", verbatimTextOutput("vers"), uiOutput("bcchk")),
          tabPanel("notes", verbatimTextOutput("notes")),
          tabPanel("errors", verbatimTextOutput("errors")),
+         tabPanel("testcov", DT::dataTableOutput("testcov")),
          tabPanel("inst", verbatimTextOutput("inst")),
          tabPanel("desc", verbatimTextOutput("desc")),
          tabPanel("about", uiOutput("about"))

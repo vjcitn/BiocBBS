@@ -11,10 +11,11 @@
 #' if (interactive()) {
 #'  con = RSQLite::dbConnect(RSQLite::SQLite(), 
 #'   system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
-#'  browse_checks(con)
+#'  RSQLite::dbListTables(con)
+#'  browse_checks()
 #' }
 #' @export
-browse_checks = function(con) {
+browse_checks = function() {
  od = getwd()
  on.exit(setwd(od))
  uif = system.file("app1/ui.R", package="BiocBBSpack")
@@ -98,15 +99,29 @@ format_bcchk = function(txt, out_suffix=".html") {
  writeLines(c("<pre>", cur, "</pre>"), paste0(txt, out_suffix))
 }
 
+add_blank = function(strm, where) {
+  if (length(where)>1) {
+    strm = c(strm[1:where[1]], " ", strm[-c(1:where[1])])
+    where = where[-1]
+    Recall(strm,where)
+  }
+  c(strm[1:where], " ", strm[-c(1:where)])
+}
+
+
 
 # find * NOTE, WARNING, ERROR and produce a list for markup
 process_log = function(curtxt, 
     event_regexp = c("\\* NOTE..*|\\* WARNING..*|\\* ERROR..*"), ...) {
-#  curtxt = readLines(txt)
   nlines = length(curtxt)
   evlocs = grep(event_regexp, curtxt)
   dev = diff(evlocs)
-  if (any(dev==1)) stop("contiguous events -- code needs revision")
+  if (any(dev==1)) {
+     wh = which(dev==1)
+     txt = add_blank(curtxt,wh)
+   }
+# stop("contiguous events -- code needs revision")
+#
 #
 # curtxt divides into event and non-event text
 # non-event chunks are marked pre(), events marked strong()
