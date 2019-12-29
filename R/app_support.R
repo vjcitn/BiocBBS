@@ -101,24 +101,30 @@ format_bcchk = function(txt, out_suffix=".html") {
 
 add_blank = function(strm, where) {
   if (length(where)>1) {
+    where = rev(where)  # work from back
     strm = c(strm[1:where[1]], " ", strm[-c(1:where[1])])
     where = where[-1]
-    Recall(strm,where)
+    Recall(strm,rev(where))
   }
-  c(strm[1:where], " ", strm[-c(1:where)])
+  else c(strm[1:where], " ", strm[-c(1:where)])
 }
 
 
 
 # find * NOTE, WARNING, ERROR and produce a list for markup
+# intent is to allow do.call(helpText, process_log(txt)) to succeed
 process_log = function(curtxt, 
     event_regexp = c("\\* NOTE..*|\\* WARNING..*|\\* ERROR..*"), ...) {
   nlines = length(curtxt)
   evlocs = grep(event_regexp, curtxt)
   dev = diff(evlocs)
-  if (any(dev==1)) {
+  ntr = 0
+  while (any(dev==1) & ntr < 10) {  # kludge .. jam a blank in to separate contiguous events before adding markup
+     ntr = ntr+1
      wh = which(dev==1)
-     txt = add_blank(curtxt,wh)
+     curtxt = add_blank(curtxt,evlocs[wh])
+     evlocs = grep(event_regexp, curtxt)
+     dev = diff(evlocs)
    }
 # stop("contiguous events -- code needs revision")
 #
