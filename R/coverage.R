@@ -1,7 +1,6 @@
 
 #' tabulator for covr outputs
 #' @rdname covrtab
-#' @method covr_tab coverage
 #' @aliases covr_tab
 #' @param x instance of coverage S3 class from covr package
 #' @param group character(1) tells how to group data, see covr:::print.coverage
@@ -14,6 +13,7 @@ covr_tab = function (x, group = c("functions"), by = "line",
 #' produce textual summary of covr analysis
 #' @rdname covrtab
 #' @import covr
+#' @method covr_tab coverage
 #' @param x result of `package_coverage`
 #' @param group character(1)
 #' @param by character(1)

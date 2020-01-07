@@ -5,7 +5,7 @@
 \alias{covr_tab.coverage}
 \title{tabulator for covr outputs}
 \usage{
-\method{covr_tab}{coverage}(x, group = c("functions"), by = "line", ...)
+covr_tab(x, group = c("functions"), by = "line", ...)
 
 \method{covr_tab}{coverage}(x, group = c("functions"), by = "line", ...)
 }
