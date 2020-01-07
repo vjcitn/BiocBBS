@@ -1,6 +1,6 @@
-    con = RSQLite::dbConnect(RSQLite::SQLite(),
-            system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
-           #"demo3.sqlite", flags=RSQLite::SQLITE_RO)
+    #con = RSQLite::dbConnect(RSQLite::SQLite(),
+    #        system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
+    #       #"demo3.sqlite", flags=RSQLite::SQLITE_RO)
     basic = RSQLite::dbReadTable(con, "basic")
 
     ui = fluidPage(

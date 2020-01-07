@@ -23,7 +23,7 @@ the one reported by BiocPkgTools::biocPkgList
 DESCRIPTION will be read from each folder in gitspath.
 }
 \examples{
-ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
+ps = PackageSet(c("parody", "ensembldb")) # bioc_coreset()[c(3,8)]) # two simple packages
 tf = tempfile()
 dir.create(tf)
 ll = populate_local_gits(ps, tf)

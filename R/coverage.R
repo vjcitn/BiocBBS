@@ -1,4 +1,11 @@
 
+#' tabulator for covr outputs
+#' @S3method covr_tab coverage
+#' @method covr_tab coverage
+#' @param x instance of coverage S3 class from covr package
+#' @param group character(1) tells how to group data, see covr:::print.coverage
+#' @param by character(1) report by line or expression
+#' @param \dots unused
 #' @export
 covr_tab = function (x, group = c("functions"), by = "line", 
     ...) UseMethod("covr_tab")

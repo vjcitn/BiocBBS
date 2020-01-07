@@ -8,7 +8,29 @@
 #' @param newdf data.frame conforming to the table in `tablename` if such exists
 #' @note Connects to db with flag SQLITE_RW and disconnects on exit.
 #' @export 
-update_status_db = function(sqlite_filename, tablename, dropfield=NULL, dropvalue, newdf ) {
+update_status_db = function (sqlite_filename, tablename, dropfield = NULL, dropvalue, 
+    newdf) 
+{
+    wcon = RSQLite::dbConnect(SQLite(), sqlite_filename)
+    on.exit(dbDisconnect(wcon))
+    allt = dbListTables(wcon)
+    if (length(allt) > 0) {
+        if (tablename %in% allt) {
+            chk = dbGetQuery(wcon, sprintf("SELECT * from %s limit 1", 
+                tablename))
+            nn = names(newdf)
+            stopifnot(all(sort(nn) == sort(names(chk))))
+        }
+        if (!is.null(dropfield)) {
+            newq = sprintf("DELETE from %s where %s = '%s'", 
+                tablename, dropfield, dropvalue)
+            dbExecute(wcon, newq)
+        }
+    }
+    dbWriteTable(wcon, tablename, newdf, append = TRUE)
+}
+
+update_status_db_old = function(sqlite_filename, tablename, dropfield=NULL, dropvalue, newdf ) {
  stopifnot(file.exists(sqlite_filename))
  wcon = dbConnect(SQLite(), sqlite_filename, flags=RSQLite::SQLITE_RW)
  on.exit(dbDisconnect(wcon))

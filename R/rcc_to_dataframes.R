@@ -44,7 +44,7 @@ rcc_to_dataframes = function(rcclist) {
   err_df = make_df_component(rcclist, component="errors")
   inst_df = make_df_component(rcclist, component="install_out")
   desc_df = make_df_component(rcclist, component="description")
-  list(dat = data.frame(package=pks, version=vers, stringsAsFactors=FALSE),
+  list(basic = data.frame(package=pks, version=vers, stringsAsFactors=FALSE),
    notes = notes_df, errors=err_df, inst=inst_df, desc=desc_df)
 }
 

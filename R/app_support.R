@@ -1,7 +1,7 @@
 #' developer report on package check process in shiny
 #' @import shiny
 #' @importFrom RSQLite dbConnect SQLite SQLITE_RO dbGetQuery dbDisconnect dbReadTable
-#' @param con SQLiteConnection where tables of check results from rcmdcheck are stored
+#' @param con SQLiteConnection where tables of check results from rcmdcheck, etc., are stored
 #' @note dbDisconnect is run if the stop button is pressed to end shiny session.  If
 #' stopped via ctrl-C or error, the connection may remain and require closure.  N.B.  The
 #' source codes for this app are in inst/app1, to simplify contribution to shinyapps.io.
@@ -11,11 +11,11 @@
 #' if (interactive()) {
 #'  con = RSQLite::dbConnect(RSQLite::SQLite(), 
 #'   system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
-#'  RSQLite::dbListTables(con)
-#'  browse_checks()
+#'  print(RSQLite::dbListTables(con))
+#'  browse_checks(con)
 #' }
 #' @export
-browse_checks = function() {
+browse_checks = function(con) {
  od = getwd()
  on.exit(setwd(od))
  uif = system.file("app1/ui.R", package="BiocBBSpack")

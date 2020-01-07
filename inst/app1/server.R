@@ -2,8 +2,8 @@
     server = function(input, output) {
         library(RSQLite)
         library(BiocBBSpack)
-        con = RSQLite::dbConnect(RSQLite::SQLite(),
-           system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
+#        con = RSQLite::dbConnect(RSQLite::SQLite(),
+#           system.file("sqlite/demo2.sqlite", package="BiocBBSpack"), flags=RSQLite::SQLITE_RO)
 #            "demo3.sqlite", flags=RSQLite::SQLITE_RO)
         putmeta = reactive({
             dbGetQuery(con, paste0("select * from basic where package = '", input$pkchoice, "'"))

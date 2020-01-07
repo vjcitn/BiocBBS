@@ -77,7 +77,7 @@ setMethod("add_dependencies", "PackageSet",
 #' @param gitspath character(1) folder to be created if it does not exist
 #' @return invisibly, the list of folders created under gitspath
 #' @examples
-#' ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
+#' ps = PackageSet(c("BiocFileCache", "ensembldb")) #bioc_coreset()[c(3,8)]) # two example packages
 #' td = tempdir()
 #' ll = populate_local_gits(ps, td)
 #' ll
@@ -107,7 +107,7 @@ read_descriptions = function(gitspath, fields=c("Package", "Version")) {
 #' @note DESCRIPTION will be read from each folder in gitspath.
 #' @return a character vector of names of packages whose git sources are out of date
 #' @examples
-#' ps = PackageSet(bioc_coreset()[c(3,8)]) # two simple packages
+#' ps = PackageSet(c("parody", "ensembldb")) # bioc_coreset()[c(3,8)]) # two simple packages
 #' tf = tempfile()
 #' dir.create(tf)
 #' ll = populate_local_gits(ps, tf)
