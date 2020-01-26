@@ -129,7 +129,7 @@ documentation and risks of error in package code.
 We'll use the `r CRANpkg("rcmdcheck")` package to capture information
 on package compliance to basic standards.  This runs `R CMD check`
 and organizes the message stream from that process.
-```{r doch, cache=TRUE}
+```{r doch, cache=FALSE}
 setwd(td)
 chk_parody = rcmdcheck::rcmdcheck("core_git/parody", quiet=TRUE)
 names(chk_parody)
