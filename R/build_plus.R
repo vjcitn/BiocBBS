@@ -8,6 +8,7 @@ build_plus = function(folder, error_on="never") {
  curd = getwd()
  on.exit({
    setwd(curd)
+   sink(NULL, type="message") # in case of error
    #close(tff)
    #try(rm(tf), silent=TRUE)
    })
@@ -23,8 +24,8 @@ build_plus = function(folder, error_on="never") {
  rcc = rcmdcheck::check_details(c1)
  tf = tempfile()
  tff = file(tf, "w")
- sink(tff, type="message")
+ sink(tff, type="message")  # necessary?
  bcc = BiocCheck::BiocCheck(fn)
- sink(NULL)
+ sink(NULL, type="message")
  list(rcc=rcc, bcc=bcc, bcc_details=readLines(tf))
 }
