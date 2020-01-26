@@ -20,6 +20,7 @@ system(sprintf("git clone --depth 1 https://git.bioconductor.org/packages/%s.git
 #' @export
 bioc_software_packagelist = function(manifest_repo_dir, release="master") {
 	curd = getwd()
+	on.exit(setwd(curd))
 	setwd(manifest_repo_dir)
 	system(paste0("git checkout ", release))
 	system("git pull")
