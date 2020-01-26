@@ -1,0 +1,69 @@
+#!/bin/bash
+
+version="devel"
+envtype="shell"
+port=$3
+
+if [ -z "${version// }" ] || [ $version != "release" -a $version != "devel" ]; then
+    echo "Enter either 'devel' or 'release' version"
+    exit 1
+fi
+
+if [ -z "${envtype// }" ]; then
+    echo "Empty 'envtype' using default: rstudio"
+    envtype="rstudio"
+elif [ $envtype != "rstudio" ] && [ $envtype != "shell" ]; then
+    echo "Enter either 'rstudio' or 'shell' environment type"
+    exit 2
+fi
+
+if [ -z "${port// }" ]; then
+    port=8787
+fi
+
+waldronIMG=bioconductor/bioconductor_full:"$version"
+
+docker pull $waldronIMG
+
+DOCKER_RPKGS="/vol_b/.docker-$version-packages"
+DOCKER_HOME="/vol_b/dockerhome"
+R_LIBS='/usr/local/lib/R/host-site-library:/usr/local/lib/R/site-library:/usr/local/lib/R/library'
+
+mkdir -p "$DOCKER_RPKGS"
+mkdir -p "$DOCKER_HOME"
+
+if [ ! -f "$DOCKER_HOME"/.Renviron ]; then
+    echo "R_LIBS=$R_LIBS" > $DOCKER_HOME/.Renviron
+fi
+
+TOKEN_EXP='GITHUB_[P|T].*'
+
+GPAT=`grep "$TOKEN_EXP" ~/.Renviron`
+GRENV=`grep "$TOKEN_EXP" $DOCKER_HOME/.Renviron`
+
+if [ ! -z "${GPAT// }" ] && [ -z "${GRENV// }" ]; then
+    echo $GPAT >> $DOCKER_HOME/.Renviron
+fi
+
+echo "Installed packages will go in host directory: $DOCKER_RPKGS"
+echo "RStudio home directory will be mounted on host directory: $DOCKER_HOME"
+echo $envtype
+
+if [ $envtype == "rstudio" ]; then
+    echo "Open rstudio running Bioconductor version $version at http://localhost:$port"
+fi
+
+if [ $envtype == "rstudio" ]; then
+    docker run -e PASSWORD=rstudiopassword \
+        -v $DOCKER_HOME:/home/rstudio \
+        -v $DOCKER_RPKGS:/usr/local/lib/R/host-site-library \
+        -p $port:8787 \
+        $waldronIMG
+elif [ $envtype == "shell" ]; then
+    docker run -ti --user root \
+        -v $DOCKER_HOME:/home/rstudio \
+        -v $DOCKER_RPKGS:/usr/local/lib/R/host-site-library \
+        -w /home/rstudio \
+        $waldronIMG bash
+fi
+
