@@ -18,3 +18,10 @@
 #' @examples
 #' cov_tab_demo[1:2]
 "cov_tab_demo"
+
+#' a vector of package names needed for a fairly complete BBS run, 15 feb 2020
+#' @docType data
+#' @format character vector
+#' @examples
+#' head(soft_021520)
+"soft_021520"
