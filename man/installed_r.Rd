@@ -4,7 +4,9 @@
 \name{installed_r}
 \alias{installed_r}
 \title{a vector of package names needed for a fairly complete BBS run, jul 7 2019}
-\format{character vector}
+\format{
+character vector
+}
 \usage{
 installed_r
 }

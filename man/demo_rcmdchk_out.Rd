@@ -4,7 +4,9 @@
 \name{demo_rcmdchk_out}
 \alias{demo_rcmdchk_out}
 \title{a list of rcmdcheck::rcmdcheck results for demonstration purposes, produced dec 2019}
-\format{list}
+\format{
+list
+}
 \usage{
 demo_rcmdchk_out
 }

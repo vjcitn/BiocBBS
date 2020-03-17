@@ -4,7 +4,9 @@
 \name{soft_021520}
 \alias{soft_021520}
 \title{a vector of package names needed for a fairly complete BBS run, 15 feb 2020}
-\format{character vector}
+\format{
+character vector
+}
 \usage{
 soft_021520
 }

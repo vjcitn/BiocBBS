@@ -4,7 +4,9 @@
 \name{cov_tab_demo}
 \alias{cov_tab_demo}
 \title{a list of covr::package_coverage results, thinned for demonstration purposes, produced dec 2019}
-\format{list}
+\format{
+list
+}
 \usage{
 cov_tab_demo
 }
