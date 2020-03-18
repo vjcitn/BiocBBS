@@ -1,0 +1,101 @@
+BiocManager::valid()
+parallel::detectCores()
+BiocManager::install(c(
+"BH", "BiocNeighbors", "BiocParallel", "BiocSingular", "bit", "blob", "broom", "callr",
+"caTools", "checkmate", "cli", "covr", "crosstalk", "data.table", "DBI",
+"DelayedArray", "devtools", "digest", "dplyr", "DT", "dtplyr", "edgeR", "fansi",
+"farver", "forcats", "fs", "GenomicFeatures", "ggplot2", "gh", "glue", "HDF5Array",
+"highlight", "Hmisc", "hms", "IRanges", "jsonlite", "knitr", "latticeExtra",
+"lifecycle", "limma", "lintr", "matrixStats", "mime", "modelr", "pillar", "plyr",
+"prettyunits", "processx", "ps", "rapidjsonr", "Rcpp", "RcppAnnoy", "RcppArmadillo",
+"RCurl", "remotes", "Rhtslib", "rlang", "rmarkdown", "RMySQL", "roxygen2", "Rsamtools",
+"RSQLite", "rstudioapi", "rsvd", "rversions", "S4Vectors", "scater", "scran", "shiny",
+"ShortRead", "statmod", "stringi", "SummarizedExperiment", "testthat", "tidyr",
+"tidyselect", "tinytex", "uuid", "vctrs", "xfun", "XML", "xml2", "yaml"
+), update = TRUE, ask = FALSE, Ncpus=40)
+BiocManager::install("vjcitn/BiocBBSpack")
+BiocManager::install("vjcitn/BiocBBSpack", Ncpus=20)
+data(package="BiocBBSpack")
+BiocManager::install(bioc_3.10_software_2020.03.17, Ncpus=45)
+library(BiocBBSpack)
+BiocManager::install(bioc_3.10_software_2020.03.17, Ncpus=45)
+dim(installed.packages())
+fld = c("Rmpi", "xps", "mlm4omics", "netbenchmark", "CountClust", "sojourner", "GOSemSim", "chroGPS", "MSstatsQC", "DOSE", "Rcpi", "cellTree", "readat", "CHARGE", "MSstatsQCgui", "GAPGOM", "ViSEAGO", "pulsedSilac", "tRanslatome", "enrichplot", "ccfindR", "scAlign", "waddR", "clusterProfiler", "ReactomePA", "meshes", "scPipe", "cobindR", "DAPAR", "debrowser", "bioCancer", "eegc", "LINC", "CEMiTool", "miRspongeR", "MAGeCKFlute", "GDCRNATools", "epihet", "fcoex", "signatureSearch", "ChIPseeker", "Prostar", "miRSM", "SpidermiR", "MoonlightR", "PathwaySplice", "esATAC", "RNASeqR", "profileplyr", "enrichTF", "StarBioTrek", "ALPS", "TCGAbiolinksGUI", "methylGSA", "scTensor")
+BiocManager::install(fld)
+dim(installed.packages())
+BiocManager::install("hashmap")
+getwd()
+.libPaths()
+setwd("/usr/local/lib/R/site-library")
+dir()[1:5]
+dir("home/rstudio/zips")
+zipit = function(x) { system(sprintf("tar czf parody_1.44.0_R_x86_64-pc-linux-gnu.tar.gz"))}
+getver = function(x) { z = read.dcf(paste0(x, "/DESCRIPTION"))}
+getver(a4)
+getver("a4")
+.Last.value["Version",]
+getver("a4")
+.Last.value
+getver("a4")[,"Version"]
+getver("a4")[,"Version"][[1]]
+getver = function(x) { read.dcf(paste0(x, "/DESCRIPTION"))[,"Version"][[1]] }
+getver("a4")
+zipit = function(x) { system(sprintf("tar czf /home/rstudio/zips/%s_%s.0_R_x86_64-pc-linux-gnu.tar.gz %s", x, getver(x), x))}
+zipit("a4")
+dir("/home/rstudio/zips")
+allp = dir()
+length(allp)
+sapply(allp[-1], zipit)
+getwd()
+setwd("/home/rstudio/zips")
+length(dir())
+zipit
+dir()[1:4]
+ren = function(x) { system(sprintf("mv %s %s", x, gsub('.0_R', '_R', x)))}
+ren(dir()[1])
+dir()[1]
+dd = dir()[-1]
+sapply(dd, ren)
+dir()[1:10]
+system(sprintf("gsutil cp %1 gs://biocbbs_2020a/bioc_binaries", dir()[1]))
+system(sprintf("gsutil cp %s gs://biocbbs_2020a/bioc_binaries", dir()[1]))
+ddd = dir()[-1]
+sapply(ddd, function(x) system(sprintf("gsutil cp %s gs://biocbbs_2020a/bioc_binaries",x)))
+length(dd)
+length(ddd)
+getwd()
+dir()[1:5]
+allf = dir()
+grep("labk", allf)
+remn = allf[-c(1:2383)]
+sapply(remn, function(x) system(sprintf("gsutil cp %s gs://biocbbs_2020a/bioc_binaries",x)))
+length(allf)
+getver("zip")
+library(BiocBBSpack)
+getver("zip")
+getver = function(x) { read.dcf(paste0(x, "/DESCRIPTION"))[,"Version"][[1]] }
+getver("zip")
+getwd()
+.libPaths()
+setwd(.libPaths()[1])
+getver("zip")
+length(dir())
+allnms = dir()
+allvers = sapply(allnms, getver)
+nms = paste("Package:", allnms)
+ves = paste("Version:", allnms)
+bls = rep("", length(nms))
+pkgz = as.character(rbind(nms,ves,bls))
+cat(pkgz[1:10], sep="\n")
+ves = paste("Version:", allvers)
+pkgz = as.character(rbind(nms,ves,bls))
+cat(pkgz[1:10], sep="\n")
+writeLines(pkgz, "PACKAGES")
+readLines("PACKAGES", nr=20)
+readLines("PACKAGES", n=20)
+system("gzip PACKAGES")
+dir(patt="PAC")
+system(sprintf("gsutil cp %s gs://biocbbs_2020a/bioc_binaries", "PACKAGES.gz"))
+getwd()
+setwd("/home/rstudio")
+savehistory(file="fullhist18mar.hist.txt")
