@@ -17,8 +17,7 @@ system(sprintf("git clone --depth 1 https://git.bioconductor.org/packages/%s.git
 #' @param manifest_repo_dir character(1) folder where git@git.bioconductor.org:admin/manifest has been cloned
 #' @param release character(1) git checkout will be run for this tag
 #' @return character vector
-#' @export
-bioc_software_packagelist = function(manifest_repo_dir, release="master") {
+bioc_software_packagelist_old = function(manifest_repo_dir, release="master") {
 	curd = getwd()
 	on.exit(setwd(curd))
 	setwd(manifest_repo_dir)
@@ -32,7 +31,7 @@ bioc_software_packagelist = function(manifest_repo_dir, release="master") {
 	txt
 }
 
-bioc_software_packagelist_old = function() {
+bioc_software_packagelist_older = function() {
 	ddf = BiocPkgTools::buildPkgDependencyDataFrame()
 	unique(ddf$Package)
 }
