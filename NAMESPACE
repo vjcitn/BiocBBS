@@ -3,7 +3,6 @@
 S3method(covr_tab,coverage)
 export(PackageSet)
 export(bioc_coreset)
-export(bioc_software_packagelist)
 export(browse_checks)
 export(build1_with_buildsink)
 export(build_plus)

@@ -4,7 +4,7 @@
 \alias{get_bioc_packagelist}
 \title{generate a list of packages using the manifest}
 \usage{
-get_bioc_packagelist(rel = "RELEASE_3_10")
+get_bioc_packagelist(rel = "RELEASE_3_11")
 }
 \arguments{
 \item{rel}{character(1) release identifier, defaults to `RELEASE_3_10`}
