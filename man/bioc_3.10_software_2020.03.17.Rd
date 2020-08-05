@@ -14,6 +14,6 @@ bioc_3.10_software_2020.03.17
 a vector of package names needed for a fairly complete BBS run, 17 march 2020
 }
 \examples{
-head(soft_021520)
+head(bioc_3.10_software_2020.03.17)
 }
 \keyword{datasets}

@@ -30,5 +30,12 @@
 #' @docType data
 #' @format character vector
 #' @examples
-#' head(soft_021520)
+#' head(bioc_3.10_software_2020.03.17)
 "bioc_3.10_software_2020.03.17"
+
+#' a vector of package names needed for a fairly complete BBS run, 15 feb 2020
+#' @docType data
+#' @format character vector
+#' @examples
+#' head(soft_2020_04_20)
+"soft_2020_04_20"

@@ -1,7 +1,7 @@
 Package: BiocBBSpack
 Title: support for build system
 Description: Provide R-based support for build system.
-Version: 0.0.49
+Version: 0.0.50
 Author: Vince Carey
 Suggests: knitr, testthat, devtools,
 	dplyr, igraph, magrittr, BiocCheck
